@@ -1,5 +1,81 @@
+<HTML><HEAD>
+
+{% block extra_head %}
+
+<link rel="stylesheet" type="text/css" href="/media/admin/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/global.css"/>
+<link rel="stylesheet" type="text/css" href="/media/admin/css/widgets.css"/>
+
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="/media/js/core.js"></script>
+<script type="text/javascript" src="/media/js/admin/RelatedObjectLookups.js"></script>
+
+{{ eventform.media }}
+
+{% endblock %}
+
+<script type="text/javascript">
+// <![CDATA[
+function showhide(id){
+  if (document.getElementById) {
+    obj = document.getElementById(id);
+    if (obj.style.display == "none"){
+      obj.style.display = "";
+    } else {
+      obj.style.display = "none";
+    }
+  }
+}
+
+function hideshowon(obj,div,selectedvalue) {
+  txt = obj.options[obj.selectedIndex].value;
+  document.getElementById(div).style.display = 'block';
+  if ( txt.match(selectedvalue) ) {
+    document.getElementById(div).style.display = 'none';
+  }
+}
+
+function showhideon(obj,div,selectedvalue) {
+  txt = obj.options[obj.selectedIndex].value;
+  document.getElementById(div).style.display = 'none';
+  if ( txt.match(selectedvalue) ) {
+    document.getElementById(div).style.display = 'block';
+  }
+}
+
+function disableon(obj,div,selectedvalue) {
+  txt = obj.options[obj.selectedIndex].value;
+  document.getElementById(div).disabled = 'false';
+  if ( txt.match(selectedvalue) ) {
+    document.getElementById(div).disabled = 'true';
+  }
+}
+// ]]>
+</script>
+
 
 <style type="text/css">
+<!--
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+}
+
+body {
+	background-color: #2b3a3c;
+	color: #2d2e2e;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: .8em;
+	line-height: 1.2em;
+	margin: 0 0 0 0; 
+	padding: 0 0 0 0; 
+	text-align: center; 
+}
+
 img {
 border:0;
 margin:0 10px;
@@ -9,53 +85,96 @@ img.reduced50 {
 width:40px;
 height:40px;
 }
-
+#error {
+	color: #aa0000;
 }
+
+#outerWrapper {
+	background-color: #fff;
+	margin: 0 auto 0 auto; 
+	text-align: left; 
+	width: 70em;
+}
+#outerWrapper #header {
+	background-color: #8ab573;
+	border-bottom: solid 1px #628152; 
+	font-size: 1.5em;
+	font-weight: bold;
+	line-height: 1.7em;
+	padding: 10px 10px 10px 10px; 
+}
+
+#outerWrapper #contentWrapper #content {
+	margin: 0 16em 0 16em; 
+	padding: 10px 10px 10px 10px; 
+}
+-->
 </style> 
+</HEAD><BODY>
+<DIV id="outerWrapper">
+  <DIV id="header"> <b>Bókin</b></DIV>
 
-<b>Bókin</b>
+  <DIV id="contentWrapper">
 
+
+<DIV id="error">
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
+</DIV>
 <form action="/bokin/atburdur/skraning/" method="post">
-    Kennitala <input type="text" name="SSN" id="SSN" value="" />
+  <table>
+  <tr>
+
+    <td>Kennitala: <input type="text" name="SSN" id="SSN" value="" /></td>
     
-    <select name="event_id">
-    {% for event in open_events_old %}
-    <option value="{{ event.id }}">{{ event.division }} {{ event.event }}</option>
+    <td><select name="event_id" onchange="showhideon(this,'new_event','new');hideshowon(this,'cancel_event','new');">
+    {% for event in open_events.all %}
+    <option value="{{ event.id }}">{{ event.Name }}</option>
     {% endfor %}
-    </select>
-<input type="submit" value="Skrá" />
+    <option value="new">-- Skrá nýjan atburð --</option>
+    </select></td>
+
+  
+
+  
+  <div style="display: none;" id="new_event">
+  {{ eventform.as_p }}
+  
+  </div>
+  
+      <td><input type="submit" name="bsubmit" value="Stimpla inn" /></td>
+    <td><input type="submit" name="bsubmit" value="Loka atburði" id="cancel_event"/></td>
+    
+  </tr>  </table><br/>
 </form>
 
 
-<table>
-{% for row in current_registrations %}
-<tr>
-<td><img src="{{row.imageurl}}" class="reduced50"/></td>
-<td>{{ row.registereddate }}</td>
-<td>{{ row.event_type }}</td>
-<td>{{ row.event_name }}</td>
-<td><b>{{ row.fullname }}</b></td>
-<td>({{ row.user_group}})</td>
-<td>{{ row.PhoneNumer}}</td>
-<td><form action="bokin/atburdur/afskraning/" method="post"><input type="submit" value="Stimpla út"/></form></td>
-</tr>
+
+
+
+<!--<form action="/admin/bokin/event/add/" method="get"><input type="submit" value="Skrá atburð"/></form>-->
+<DIV id="content">
+{%regroup current_registrations|dictsort:"event_name" by event_name as event_name_list %} 
+<ul>
+{% for event_name in event_name_list %}
+    <li><H2>{{ event_name.grouper }} <b>({{event_name.list|length}})</b></H2>
+    <ul>
+    <table>
+        {% for item in event_name.list %}
+	<tr>
+	<td>{{item.registereddate}}</td>
+      	<td><img src="{{item.imageurl}}" class="reduced50"/></td>
+	<td><b>{{ item.fullname }}</b> {{ item.user_group}} {{ item.PhoneNumer}}</td>
+	<td><form action="/bokin/atburdur/afskraning/" method="post"><input type="hidden" name="id" value="{{item.id}}"/><input type="submit" value="Stimpla út"/></form></td>
+	</tr>
+        {% endfor %}
+    </table>
+    </ul>
+    </li>
 {% endfor %}
-</table>
+</ul>
+</DIV>
+</DIV>
+</DIV>
+</BODY>
+</HTML>
 
-<hr>
-{{in_event}}
-
-<table>
-{% for e in in_event %}
-
-{% for key,value in e %}
-
-<tr>
-<td>{{ key }} {{value}}</td>
-</tr>
-{% endfor %}
-
-{% endfor %}
-</table>

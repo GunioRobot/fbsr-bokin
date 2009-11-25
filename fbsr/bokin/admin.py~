@@ -1,6 +1,10 @@
 from django.contrib import admin
-from fbsr.bokin.models import Event, Division
+from fbsr.bokin.models import Event, Division, UserProfile
 
-admin.site.register(Division) 
-admin.site.register(Event) 
+class EventAdmin(admin.ModelAdmin):
+  fields = ['Division', 'Name']
+
+
+#admin.site.register(Division) 
+admin.site.register(Event, EventAdmin) 
 admin.site.register(UserProfile)

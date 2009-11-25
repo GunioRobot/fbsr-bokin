@@ -1,6 +1,8 @@
 # -*- coding: latin-1 -*-
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.admin import widgets
+
 import datetime
 
 class UserProfile(models.Model):
@@ -9,7 +11,7 @@ class UserProfile(models.Model):
     PhoneNumer = models.PositiveIntegerField()
     User = models.ForeignKey(User, unique=True)
     def __unicode__(self):
-        return self.SSN
+        return self.User.first_name
     class Meta:
         verbose_name = "notanda upplýsingar"
 	verbose_name_plural = "notanda upplýsingar"
@@ -43,7 +45,7 @@ class Asset(models.Model):
 class Event(models.Model):
     User = models.ForeignKey(User)
     Division = models.ForeignKey(Division)
-    Name = models.CharField(max_length=200)
+    Name = models.CharField('Nafn atburðar', max_length=200)
     OpenDate = models.DateTimeField('atburður hefst')
     CloseDate = models.DateTimeField('atburði lýkur', null=True, blank=True)
     def __unicode__(self):
@@ -65,4 +67,3 @@ class AssetRegistration(models.Model):
     Asset = models.ForeignKey(Asset)
     LeasedDate = models.DateTimeField('leiga hefst')
     ReturnDate = models.DateTimeField('búnaði skilað', null=True, blank=True)
-    
