@@ -6,10 +6,11 @@ from django.contrib.admin import widgets
 import datetime
 
 class UserProfile(models.Model):
-    SSN = models.CharField(max_length=200)    
+    SSN = models.CharField(max_length=25)    
     ImageUrl = models.URLField()
     PhoneNumer = models.PositiveIntegerField()
     User = models.ForeignKey(User, unique=True)
+    Unconfirmed = models.BooleanField()
     def __unicode__(self):
         return self.User.first_name
     class Meta:

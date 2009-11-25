@@ -1,8 +1,9 @@
 # -*- coding: latin-1 -*-
-from django.forms import ModelForm
+from django.forms import Form, ModelForm
+from django import forms
 from django.contrib.admin import widgets                                       
-
-from fbsr.bokin.models import Event
+from django.contrib.auth.models import User
+from fbsr.bokin.models import Event, UserProfile
 
 
 class EventForm(ModelForm):
@@ -12,6 +13,15 @@ class EventForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(EventForm, self).__init__(*args, **kwargs)
 	self.fields['Division'].label = 'Gerð'
-        self.fields['OpenDate'].widget = widgets.AdminDateWidget()
-	self.fields['CloseDate'].widget = widgets.AdminDateWidget()
+        self.fields['OpenDate'].widget = widgets.AdminSplitDateTime()
+	self.fields['CloseDate'].widget = widgets.AdminSplitDateTime()
         
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+	fields = ['username', 'first_name', 'last_name', 'email']
+
+class UserProfileForm(ModelForm):
+    class Meta:
+        model = UserProfile
+	fields = ['SSN', 'PhoneNumer']

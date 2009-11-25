@@ -1,12 +1,12 @@
-# -*- coding: latin-1 -*-
+# -*- coding: UTF-8 -*-
 import datetime
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from fbsr.bokin.models import Event, UserProfile, EventRegistration, Division
-from fbsr.bokin.forms import EventForm
+from fbsr.bokin.forms import EventForm, UserForm, UserProfileForm
 
 
 def getDictsFromCursor(cursor):
@@ -22,7 +22,18 @@ def current_registrations():
     from django.db import connection
     cursor = connection.cursor()
     cursor.execute("SELECT id, imageurl, event_name, event_type, date_format(registereddate,'%%Y-%%m-%%d %%H:%%i') as registereddate, fullname , replace(user_group,'Inngenginn','') as user_group, PhoneNumer FROM event_registrations WHERE unregistereddate is null order by event_name, user_group, registereddate") 
+    #cursor.close()
     return getDictsFromCursor(cursor)
+
+def get_userid():
+    from django.db import connection
+    cursor = connection.cursor()
+    cursor.execute("select get_userid() from dual")
+    cursor.close()
+    nextRow = cursor.fetchone()
+    #print nextRow
+    return nextRow
+
 
 def index(request):
     open_events = Event.objects.filter(Q(CloseDate__gte=datetime.datetime.now()) | Q(CloseDate__isnull=True))
@@ -85,3 +96,33 @@ def register_off_event(request):
     er.UnregisteredDate=datetime.datetime.now()
     er.save()
     return HttpResponseRedirect(reverse('fbsr.bokin.views.index', args=()))
+    
+def register_nilli(request):
+    if request.method == 'POST':
+        userform= UserForm(request.POST)
+	userprofileform= UserProfileForm(request.POST)
+
+        if userform.is_valid(): 
+	     if userprofileform.is_valid(): 
+		user=userform.save(commit=False)
+		user.is_staff=0
+		user.is_active=0
+		user.is_superuser=0
+		user.id=get_userid()
+		group=Group.objects.get(name='Nýliði')
+		user.save()
+		user.groups.add(group)
+		userprofile=userprofileform.save(commit=False)
+		userprofile.User_id=user.id
+		userprofile.save()
+		return HttpResponseRedirect(reverse('fbsr.bokin.views.index', args=()))
+	     else:
+		  return render_to_response('bokin/stofna_nilla.html', {'userform': userform,'userprofileform':userprofileform,'error_message': userprofileform.errors})
+            
+	else:
+	  return render_to_response('bokin/stofna_nilla.html', {'userform': userform,'userprofileform':userprofileform,'error_message': userform.errors})
+	 
+    userform= UserForm()
+    userprofileform= UserProfileForm()
+    return render_to_response('bokin/stofna_nilla.html', {'userform': userform,'userprofileform':userprofileform})
+
