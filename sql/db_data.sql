@@ -1,0 +1,22 @@
+INSERT INTO `fbsr2`.`auth_group` VALUES  (1,'Inngenginn'),
+ (2,'Nýliði');
+
+INSERT INTO `fbsr2`.`bokin_division` VALUES  (1,1,'Útkall F-1 Grænn','2009-11-25 00:00:00',NULL),
+ (2,1,'Útkall F-2 Gulur','2009-11-25 00:00:00',NULL),
+ (3,1,'Útkall F-3 Rauður','2009-11-25 00:00:00',NULL),
+ (4,1,'Æfing','2009-11-25 00:00:00',NULL),
+ (5,1,'Nýliðaferð','2009-11-25 00:00:00',NULL),
+ (6,1,'Sleðasvið','2009-11-25 00:00:00',NULL),
+ (7,1,'Sjúkrasvið','2009-11-25 00:00:00',NULL),
+ (8,1,'Bílasvið','2009-11-25 00:00:00',NULL),
+ (9,1,'Undanfarasvið','2009-11-25 00:00:00',NULL),
+ (11,1,'Stjórn','2009-11-25 00:00:00',NULL),
+ (10,1,'Aðalfundur','2009-11-25 00:00:00',NULL),
+ (18,1,'Fjallasvið','2009-11-25 00:00:00',NULL),
+ (12,1,'Upplýsingasvið','2009-11-25 00:00:00',NULL),
+ (13,1,'Fjarskiptasvið','2009-11-25 00:00:00',NULL),
+ (14,1,'Fallhlífarsvið','2009-11-25 00:00:00',NULL),
+ (15,1,'Hlaupaæfing','2009-11-25 00:00:00',NULL),
+ (16,1,'B1','2009-11-25 00:00:00',NULL),
+ (17,1,'B2','2009-11-25 00:00:00',NULL),
+ (19,1,'Fundur','2009-11-25 00:00:00',NULL);

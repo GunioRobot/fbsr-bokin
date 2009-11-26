@@ -1,0 +1,61 @@
+== Útgáfustýring ==
+Git repository er í skráa safninu .git.
+
+== Lýsing á skrásöfnum ==
+  docs				Greiningar og leiðbeiningar
+  fbsr				Django python skrár
+    bokin/models/models.py	Skilgreining á db er í skránni 
+    bokin/views.py		Aðal kóði verkefnisins
+    urls.py			stillingar
+    settings.py			stillingar
+    bokin/urls.py		stillingar
+  fbsr_media			Myndir of fleira tengt vefsíðu
+  fbsr_templates		Útlit vefs, stylesheet og html skrár
+  sql				Db hlutir, gögn og stefjur
+  .git				Útgáfustýring
+
+== Django vefhluti ==
+Django hluti af DB smíðaður með því að keyra á fbsr skrásafnið
+python manage.py syncdb
+
+Í /fbsr/bokin/admin.py þar hef ég bætt við "admin.site.register(..." til að leyfa admin hringl á UserProfile, Event og Division í grunninum þar má bæta öllum töflum við ef við viljum.
+
+Stofna admin notanda í django:
+python manage.py createsuperuser --username=fbsr --email=fbsr@fbsr.is
+
+Hægt að starta dev server á porti 8000 strax með:
+python manage.py runserver
+En við viljum klárlega keyra þetta á apache í framtíðinni.
+
+http://localhost:8000/		sjálfur vefurinn
+http://localhost:8000/admin/ 	django admin síða
+(bara hægt að nota user fbsr pass fbsr, hinir django notendurnir eru ekki með lögleg password úr importinu frá gamla vefnum)
+
+== Lýsing gagnagrunns ==
+Töflur sem eru forskeyttar með "auth_" eru innri django kerfis töflur.  Allt með bokin_ (ísl. bókin) forskeytum er búið til útfrá fbsr/bokin/models.py.
+
+Þarna ber helst að geta að auth_users er standard django notenda tafla er með 1to1 yfir á bokin_userprofile, til að geyma mynd, kennitölu og svo framvegis.  Auth_groups innihalda tvær notenda grúppur "inngenginn" og "nýliði".
+
+Bokin_division eru flokkar sem lýsa sviðum í sveitinni. (Nýliðaferð, F1 Grænn Útkall , Aðalfundur o.s.fr.)
+
+Bokin_event eru síðan atburðir sem hægt er að skrá sig á og eru þeir flokkaðir niður á bokin_division.  Skráningarnar eru síðan í bokin_eventregistration.
+
+Bokin_asset og Bokin_assetregistration eru óútfærðar í viðmóti en var hugsað fyrir talstöðvar og annan búnað til að skrá á notendur.
+
+Þrjár hjálpar stefjur þarf
+  auto_sync_users	(keyrt í mysql event einusinni á dag)
+      uppfærir fbsr.is notendur en lætur nýliða notendur vera (userid > 100000)
+      þarf að hafa uppfærðar joomla töflur af fbsr.is (jos_users og jos_comprofiler)
+  auto_sign_out		(keyrt á 10 min fresti úr mysql event)
+      lokar atburðum með engum notenum í
+      hendir notenum útúr atburð sem er lokaðu
+  get_userid
+      sækir næsta lausa notenda id fyrir nýliða, yfir 100000, til að rekast ekki á id frá fbsr.is
+      django síða notar þetta við stofnun á nýliðum
+      
+Eitt view er í grunninum
+  event_registrations
+      notað til að birta forsíðu hverjir eru skráðir á hvað
+
+== Nánari upplýsingar ==
+Frekari upplýsingar er að fá hjá axel.tomasson@gmail.com

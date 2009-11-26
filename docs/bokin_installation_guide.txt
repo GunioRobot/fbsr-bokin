@@ -1,0 +1,6 @@
+Django 1.1.1 eða hærra
+
+MySQL 5.1.37 eða hærra
+Setja þarf í kaflan [mysqld] í skránni /etc/mysql/my.cnf
+event_scheduler=ON
+ 
