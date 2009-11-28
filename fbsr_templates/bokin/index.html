@@ -128,9 +128,9 @@ height:40px;
   <table>
   <tr>
 
-    <td>Kennitala: <input type="text" name="SSN" id="SSN" value="" /></td>
+    <td>Kennitala: <input type="text" name="SSN" id="SSN" value="" onfocus="showhideon(document.getElementById('event_id'),'new_event','new')"/></td>
     
-    <td><select name="event_id" onchange="showhideon(this,'new_event','new');hideshowon(this,'cancel_event','new');">
+    <td><select id="event_id" name="event_id" onchange="showhideon(this,'new_event','new');hideshowon(this,'cancel_event','new');">
     {% for event in open_events.all %}
     <option value="{{ event.id }}">{{ event.Name }}</option>
     {% endfor %}
