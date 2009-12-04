@@ -10,7 +10,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'fbsr2'             # Or path to database file if using sqlite3.
+DATABASE_NAME = 'fbsr'             # Or path to database file if using sqlite3.
 DATABASE_USER = 'fbsr'             # Not used with sqlite3.
 DATABASE_PASSWORD = 'fbsr'         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
