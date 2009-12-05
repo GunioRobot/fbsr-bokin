@@ -1,6 +1,14 @@
 == Útgáfustýring ==
 Git repository er í skráa safninu .git.
 
+Ná í nýjustu bokin af git útgáfustýringu einhverstaðar (Tala við Sigurbjart eða Axel)
+Dæmi hér að neðan notar sftp í gegnum ssh þjón, svo komast þarf að því hvar bokin liggur í dag:
+  fbsr@bokin-desktop:~/fbsr$ git clone notandi@einhver_tölva:/home/fbsr/fbsr
+
+Seinna til að sækja nýrri útgáfu
+  fbsr@bokin-desktop:~/fbsr/fbsr$ git pull
+
+
 == Lýsing á skrásöfnum ==
   docs				Greiningar og leiðbeiningar
   fbsr				Django python skrár
@@ -9,6 +17,7 @@ Git repository er í skráa safninu .git.
     urls.py			stillingar
     settings.py			stillingar
     bokin/urls.py		stillingar
+    django.wsgi			stillingar fyrir mod_wsgi í apache
   fbsr_media			Myndir of fleira tengt vefsíðu
   fbsr_templates		Útlit vefs, stylesheet og html skrár
   sql				Db hlutir, gögn og stefjur

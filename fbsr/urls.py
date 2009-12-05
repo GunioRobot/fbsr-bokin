@@ -15,8 +15,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^bokin/', include('fbsr.bokin.urls')),
     (r'^admin/(.*)', admin.site.root),
-    (r'^my_admin/jsi18n', 'django.views.i18n.javascript_catalog'),
-    (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': '/home/atom/prog/fbsr/fbsr_media'}),
+    (r'^myadmin/jsi18n', 'django.views.i18n.javascript_catalog'),
     (r'^$', 'fbsr.bokin.views.index'),
 
 
