@@ -1,7 +1,7 @@
-INSERT INTO `fbsr2`.`auth_group` VALUES  (1,'Inngenginn'),
+INSERT INTO `auth_group` VALUES  (1,'Inngenginn'),
  (2,'Nýliði');
 
-INSERT INTO `fbsr2`.`bokin_division` VALUES  (1,1,'Útkall F-1 Grænn','2009-11-25 00:00:00',NULL),
+INSERT INTO `bokin_division` VALUES  (1,1,'Útkall F-1 Grænn','2009-11-25 00:00:00',NULL),
  (2,1,'Útkall F-2 Gulur','2009-11-25 00:00:00',NULL),
  (3,1,'Útkall F-3 Rauður','2009-11-25 00:00:00',NULL),
  (4,1,'Æfing','2009-11-25 00:00:00',NULL),

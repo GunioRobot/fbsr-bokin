@@ -1,6 +1,6 @@
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `fbsr2`.`auto_sync_users`$$
+DROP PROCEDURE IF EXISTS `auto_sync_users`$$
 CREATE DEFINER=`fbsr`@`%` PROCEDURE `auto_sync_users`()
 BEGIN
 

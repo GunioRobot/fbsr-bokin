@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     (r'^bokin/', include('fbsr.bokin.urls')),
     (r'^admin/(.*)', admin.site.root),
     (r'^myadmin/jsi18n', 'django.views.i18n.javascript_catalog'),
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': '/home/atom/prog/fbsr/fbsr_media'}),
     (r'^$', 'fbsr.bokin.views.index'),
 
 

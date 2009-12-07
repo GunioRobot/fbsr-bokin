@@ -1,4 +1,4 @@
-CREATE or replace VIEW `fbsr2`.`auto_jos_comprofiler` (ssn,imageurl,phonenumber, user_id) AS
+CREATE or replace VIEW `auto_jos_comprofiler` (ssn,imageurl,phonenumber, user_id) AS
   SELECT 
 	cb_kennitala,
 	ifnull(concat('http://fbsr.is/images/comprofiler/',jc.avatar),

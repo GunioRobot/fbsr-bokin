@@ -17,4 +17,3 @@ CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DE
 
 
 
-CREATE OR REPLACE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `events` AS select `e`.`id` AS `id`,`d`.`Name` AS `division`,`e`.`Name` AS `event`,count(1) AS `cnt`,`e`.`CloseDate` AS `CloseDate` from ((`bokin_eventregistration` `b` join `bokin_event` `e`) join `bokin_division` `d`) where (isnull(`b`.`UnregisteredDate`) and (`b`.`Event_id` = `e`.`id`) and (`e`.`Division_id` = `d`.`id`)) group by `b`.`Event_id`

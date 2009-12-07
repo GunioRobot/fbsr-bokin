@@ -1,6 +1,6 @@
 DELIMITER $$
 
-DROP PROCEDURE IF EXISTS `fbsr2`.`auto_signout`$$
+DROP PROCEDURE IF EXISTS `auto_signout`$$
 CREATE DEFINER=`fbsr`@`%` PROCEDURE `auto_signout`()
 BEGIN
 /* =======Henda user út úr event sem er búinn að lokast ==========================================*/

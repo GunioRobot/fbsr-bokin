@@ -77,6 +77,10 @@ Búa til ganga grunn í gengum django
   fbsr@bokin-desktop:~/fbsr/fbsr$ python manage.py syncdb
   svara já við að búa til admin notanda (fbsr)
 
+Ath hér í næstu skrefum gæti þurft að taka út vitlaust schema nafn (dæmi fbsr2 kemur fyrir í nokkrum skrám)
+
+Setja inn django notenda grúppur og tegundir útkalla (sjá sql/db_data.sql)
+
 Setja þarf joomla notendur af fbsr.is inní grunn, það þýðir að setja inn töflurnar
   jos_users (sjá skránna sql/jos_users.sql)
   jos_comprofiler (sjá skránna sql/jos_comprofiler.sql)
@@ -87,5 +91,7 @@ Búa þarf til í grunninum inní schema fbsr
   töfluna auto_log (sjá sql/db_objects.sql)
   stefjuna auto_signout (sjá sql/auto_signout.sql
   stefjuna auto_sync_users (sjá sql/auto_sync_users.sql)
-
+  stefjuna get_userid (sjá sql/get_userid.sql)
+  
 Einnig þarf að skrá tvo eventa (auto_signout og auto_sync_users) og kveikja á global event scheduler (sjá sql/db_objects.sql)
+

@@ -1,59 +1,183 @@
-<style type="text/css">
-<!--
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	font-size: 100%;
-}
+@charset "iso-8859-1";
+
+/* -- cx_layout.css : CX Layout Stylesheet 2009.04.01 -- */
 
 body {
-	background-color: #2b3a3c;
-	color: #2d2e2e;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: .8em;
-	line-height: 1.2em;
-	margin: 0 0 0 0; 
-	padding: 0 0 0 0; 
-	text-align: center; 
+	font-family: 'Times New Roman', Times, serif;
+}
+a:hover {
+	text-decoration: none; 
+}
+#page-container {
+	max-width: 1000px;
+	min-width: 700px;
+	margin: 0 auto;
+	position: relative;
+}
+#cx-gate {
+	height: 400px;
+	border: solid 1px #000;
+	margin: 90px 30px -480px 30px;
+	padding: 0 19px;
+	background-color: #fff;
+}
+#cx-left, #cx-right {
+	position: absolute;
+	top: auto;
+	margin-top: 150px;
+}
+#cx-left {
+	left: 0;
+}
+#cx-right {
+	right: 0;
+}
+div.cxf {
+	width: 70px;
+	height: 50px;
+	border: solid 1px #000;
+	margin-top: 10px;
+	background-color: #fff;
+}
+#cx-left div.cxf {
+	border-left-width: 0;
+}
+#cx-right div.cxf {
+	border-right-width: 0;
+}
+#top-margin {
+	padding: 0 50px 5px;
+	min-width: 1px; /* IE7 hack */
+}
+#search {
+	float: right;
+}
+#search form, #search form p {
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+#search input {
+	border: solid 1px #000;
+}
+#search-button {
+	background-color: #fff;
+}
+#page-content {
+	border: solid 1px #000;
+	margin: 0 50px;
+	padding: 1px 40px;
+	background-color: #fff;
+}
+#masthead {
+	padding-top: 1em;
+	border-bottom: solid 1px #000;
+}
+#masthead h1 {
+	margin: 0;
+	padding: 0;
+}
+#column-container {
+	padding-right: 200px;
+}
+#left-column {
+	float: left;
+	width: 100%;
+}
+#right-column {
+	float: right;
+	width: 200px;
+	margin-right: -200px;
+	font-family: tahoma, verdana, sans-serif;
+	font-size: 0.8em;
+	line-height: 1.4em;
+}
+div.inside-column {
+	margin: 1em 0;
+	min-height: 1px; /* IE7 Hack */
+}
+#left-column div.inside-column {
+	border-right: solid 1px #000;
+	margin-right: -1px;
+	padding-right: 10px;
+}
+#right-column div.inside-column {
+	border-left: solid 1px #000;
+	padding-left: 10px;
+}
+#footer {
+	padding: 0 71px;
+	text-align: center;
+}
+div.clear {
+	clear: both;
+	padding-bottom: 1px;
+}
+ul.menu, 
+ul.menu li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+ul.menu {
+	margin: 1em 0;
+	border-top: dotted 1px #000;
+}
+ul.menu li {
+	padding: 5px 10px;
+	border-bottom: dotted 1px #000;
+	font-size: 1.22em;
+}
+#right-column .block {
+	padding: 5px;
+	border: dotted 1px #000;
+	border-width: 1px 0;
 }
 
-img {
-border:0;
-margin:0 10px;
+/* -- Edit color values below this line to change the color scheme of the layout -- */
+body, div.cxf {
+	/*em*/
+	zbackground-color: #fcfcfc;
+	
 }
+ul.menu, 
+ul.menu li, 
+#right-column .block {
+	border-color: #ccc;
+}
+#left-column div.inside-column,
+#right-column div.inside-column,
+#masthead {
+	border-color: #ddd;
+}
+#cx-gate,
+div.cxf,
+#search input,
+#page-content {
+	border-color: #aaa;
+}
+#footer {
+	color: #666;
+}
+#cx-gate {
+	/*background-color: #f7f7f7;*/
+	background-color: #e1ddd9
+}
+#search-button {
+	background-color: #f5f5f5;
+}
+#page-content {
+	background-color: #eee;
+	/*background-color: #e1ddd9*/
+}
+
+
 
 img.reduced50 {
 width:40px;
 height:40px;
 }
+
 #error {
 	color: #aa0000;
 }
-
-#outerWrapper {
-	background-color: #fff;
-	margin: 0 auto 0 auto; 
-	text-align: left; 
-	width: 70em;
-	-moz-border-radius: 15px; -webkit-border-radius: 15px;
-}
-#outerWrapper #header {
-	background-color: #8ab573;
-	-moz-border-radius-topleft: 15px; -webkit-border-top-left-radius: 15px;
-	-moz-border-radius-topright: 15px; -webkit-border-top-right-radius: 15px;
-	border-bottom: solid 1px #628152; 
-	font-size: 1.5em;
-	font-weight: bold;
-	line-height: 1.7em;
-	padding: 10px 10px 10px 10px; 
-}
-
-#outerWrapper #contentWrapper #content {
-	margin: 0 16em 0 16em; 
-	padding: 10px 10px 10px 10px;
-	
-}
--->
-</style> 

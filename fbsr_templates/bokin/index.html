@@ -56,51 +56,41 @@ function disableon(obj,div,selectedvalue) {
 // ]]>
 </script>
 
-
-
 </HEAD><BODY>
-<DIV id="outerWrapper">
-  <DIV id="header"> <b>Bókin</b></DIV>
-
-  <DIV id="contentWrapper">
 
 
-<DIV id="error">
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-</DIV>
-<form action="/bokin/atburdur/skraning/" method="post">
-  <table>
-  <tr>
+		<div id="page-container">
+			<div id="cx-gate"></div>
+			<div id="cx-left">
+			<!--div class="cxf"></div><div class="cxf"></div><div class="cxf"></div><div class="cxf"></div-->
+			</div>
+			<div id="cx-right">
+			<!--div class="cxf"></div><div class="cxf"></div><div class="cxf"></div><div class="cxf"></div-->
+			</div>
+			<div id="top-margin">
+				<div id="search">
+					<form method="get" action="http://www.google.com/search">
+						<p>
+							<input type="hidden" name="as_dt" value="i">
 
-    <td>Kennitala: <input type="text" name="SSN" id="SSN" value="" onfocus="showhideon(document.getElementById('event_id'),'new_event','new')"/></td>
-    
-    <td><select id="event_id" name="event_id" onchange="showhideon(this,'new_event','new');hideshowon(this,'cancel_event','new');">
-    {% for event in open_events.all %}
-    <option value="{{ event.id }}">{{ event.Name }}</option>
-    {% endfor %}
-    <option value="new">-- Skrá nýjan atburð --</option>
-    </select></td>
+							<input type="hidden" name="as_sitesearch" value="">
+							<input class="text" type="text" name="q" maxlength="255">
+							<input type="submit" id="search-button" value="Search">
+						</p>
+					</form>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div id="page-content">
 
-  
-
-  
-  <div style="display: none;" id="new_event">
-  {{ eventform.as_p }}
-  
-  </div>
-  
-      <td><input type="submit" name="bsubmit" value="Stimpla inn" /></td>
-    <td><input type="submit" name="bsubmit" value="Loka atburði" id="cancel_event"/></td>
-    <td><a href="/bokin/notandi/skra/">Skrá nýjan nilla</a></td>
-  </tr>  </table><br/>
-</form>
-
-
-
+				<div id="masthead">
+					<h1>Bókin</h1>
+				</div>
+				<div id="column-container">
+					<div id="left-column">
+						<div class="inside-column">
 
 
-<!--<form action="/admin/bokin/event/add/" method="get"><input type="submit" value="Skrá atburð"/></form>-->
-<DIV id="content">
 {%regroup current_registrations|dictsort:"event_name" by event_name as event_name_list %} 
 <ul>
 {% for event_name in event_name_list %}
@@ -126,9 +116,68 @@ function disableon(obj,div,selectedvalue) {
     </li>
 {% endfor %}
 </ul>
+
+
+						</div>
+					</div>
+					<div id="right-column">
+						<div class="inside-column">
+
+							<ul class="menu">
+								<li><a href="">Tölfræði</a></li>
+								<li><a href="">Lager</a></li>
+							</ul>
+							<p class="block">
+							
+							<DIV id="error">
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 </DIV>
-</DIV>
-</DIV>
+
+
+<form action="/bokin/atburdur/skraning/" method="post">
+  Kennitala: <input type="text" name="SSN" id="SSN" value="" onfocus="showhideon(document.getElementById('event_id'),'new_event','new')"/>
+    
+    <select id="event_id" name="event_id" onchange="showhideon(this,'new_event','new');hideshowon(this,'cancel_event','new');">
+    {% for event in open_events.all %}
+    <option value="{{ event.id }}">{{ event.Name }}</option>
+    {% endfor %}
+    <option value="new">-- Skrá nýjan atburð --</option>
+    </select><br/>
+
+  
+
+  
+  <div style="display: none;" id="new_event">
+  {{ eventform.as_p }}
+  
+  </div>
+  
+      <input type="submit" name="bsubmit" value="Stimpla inn" /><br/>
+    <input type="submit" name="bsubmit" value="Loka atburði" id="cancel_event"/><br/>
+    <a href="/bokin/notandi/skra/">Skrá nýjan nilla</a>
+  <br/>
+</form>
+
+
+							
+							</p>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div id="footer">
+
+				<p>
+					&copy FBSR 2009
+				</p>
+			</div>
+		</div>
+
+
+
+
+
 </BODY>
 </HTML>
 

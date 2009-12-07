@@ -1,6 +1,6 @@
 DELIMITER $$
 
-DROP FUNCTION IF EXISTS `fbsr2`.`get_userid`$$
+DROP FUNCTION IF EXISTS `get_userid`$$
 CREATE DEFINER=`fbsr`@`%` FUNCTION `get_userid`() RETURNS int(11)
 BEGIN
 /* =======Skilar næsta lausa nýliða user id (yfir 100000) á þá ekki að rekast á fbsr.is userid========*/
