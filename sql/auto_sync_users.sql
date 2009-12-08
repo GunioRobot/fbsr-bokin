@@ -175,6 +175,26 @@ where exists (
 
 end;
 commit;
+
+/* =======update groups ===================================*/
+savepoint s5;
+begin
+DECLARE EXIT HANDLER FOR SQLEXCEPTION begin
+	/* on exception, log error and rollback*/
+	insert into auto_log (dt, db_entity, event_group)
+	select current_timestamp(),  0, 'group insert error' 
+	from dual;
+	rollback to savepoint s5;
+end;
+/* setja nýliða í grúppur*/
+insert into auth_user_groups (user_id, group_id) select user_id, 2 from auto_jos_comprofiler where nylidi=1 ON DUPLICATE KEY UPDATE group_id = 2;
+/* setja inngengna í grúppur */
+insert into auth_user_groups (user_id, group_id) select user_id, 1 from auto_jos_comprofiler where nylidi=0 ON DUPLICATE KEY UPDATE group_id = 1;
+end;
+commit;
+
+
+
 END$$
 
 DELIMITER ;
