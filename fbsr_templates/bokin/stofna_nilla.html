@@ -1,72 +1,44 @@
 <HTML><HEAD>
-
-{% block extra_head %}
-
-<link rel="stylesheet" type="text/css" href="/media/admin/css/forms.css"/>
-<link rel="stylesheet" type="text/css" href="/media/admin/css/base.css"/>
-<link rel="stylesheet" type="text/css" href="/media/admin/css/global.css"/>
-<link rel="stylesheet" type="text/css" href="/media/admin/css/widgets.css"/>
-
-<script type="text/javascript" src="/admin/jsi18n/"></script>
-<script type="text/javascript" src="/media/js/core.js"></script>
-<script type="text/javascript" src="/media/js/admin/RelatedObjectLookups.js"></script>
-
-{{ eventform.media }}
-
-{% endblock %}
+<link rel="stylesheet" type="text/css" href="/admin/media/css/forms.css"/>
+<link rel="stylesheet" type="text/css" href="/admin/media/css/base.css"/>
+<link rel="stylesheet" type="text/css" href="/admin/media/css/widgets.css"/>
 
 <link rel="stylesheet" type="text/css" href="/media/styles/fbsr.css" />
-
-<script type="text/javascript">
-// <![CDATA[
-function showhide(id){
-  if (document.getElementById) {
-    obj = document.getElementById(id);
-    if (obj.style.display == "none"){
-      obj.style.display = "";
-    } else {
-      obj.style.display = "none";
-    }
-  }
-}
-
-function hideshowon(obj,div,selectedvalue) {
-  txt = obj.options[obj.selectedIndex].value;
-  document.getElementById(div).style.display = 'block';
-  if ( txt.match(selectedvalue) ) {
-    document.getElementById(div).style.display = 'none';
-  }
-}
-
-function showhideon(obj,div,selectedvalue) {
-  txt = obj.options[obj.selectedIndex].value;
-  document.getElementById(div).style.display = 'none';
-  if ( txt.match(selectedvalue) ) {
-    document.getElementById(div).style.display = 'block';
-  }
-}
-
-function disableon(obj,div,selectedvalue) {
-  txt = obj.options[obj.selectedIndex].value;
-  document.getElementById(div).disabled = 'false';
-  if ( txt.match(selectedvalue) ) {
-    document.getElementById(div).disabled = 'true';
-  }
-}
-// ]]>
-</script>
+<link rel="icon" type="image/png" href="/media/favicon.png" />
 
 </HEAD><BODY>
-<DIV id="outerWrapper">
-  <DIV id="header"> <b>Bókin</b></DIV>
 
-  <DIV id="contentWrapper">
 
-    <DIV id="error">
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-    </DIV>
+		<div id="page-container">
+			<div id="cx-gate"></div>
+			<div id="cx-left">
+			<!--div class="cxf"></div><div class="cxf"></div><div class="cxf"></div><div class="cxf"></div-->
+			</div>
+			<div id="cx-right">
+			<!--div class="cxf"></div><div class="cxf"></div><div class="cxf"></div><div class="cxf"></div-->
+			</div>
+			<div id="top-margin">
+				<div id="search">
+					<form method="get" action="http://www.google.com/search">
+						<p>
+							<input type="hidden" name="as_dt" value="i">
 
-    <DIV id="content">
+							<input type="hidden" name="as_sitesearch" value="">
+							<input class="text" type="text" name="q" maxlength="255">
+							<input type="submit" id="search-button" value="Search">
+						</p>
+					</form>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div id="page-content">
+
+				<div id="masthead">
+					<h1>Bókin</h1>
+				</div>
+				<div id="column-container">
+					<div id="left-column">
+						<div class="inside-column">
 
     <form action="/bokin/notandi/skra/" method="post">
       
@@ -75,9 +47,45 @@ function disableon(obj,div,selectedvalue) {
       <input type="submit" name="bsubmit" value="Stofna nilla" />
     </form>
 
-    </DIV>
-  </DIV>
+
+
+						</div>
+					</div>
+					<div id="right-column">
+						<div class="inside-column">
+
+							<ul class="menu">
+								<li><a href="../../..">Aðalsíða</a></li>
+								<li><a href="">Tölfræði</a></li>
+								<li><a href="">Lager</a></li>
+							</ul>
+							<p class="block">
+							
+							<DIV id="error">
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 </DIV>
+
+
+
+
+							
+							</p>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div id="footer">
+
+				<p>
+					&copy FBSR 2009  (útgáfa 0.0.2)
+				</p>
+			</div>
+		</div>
+
+
+
+
+
 </BODY>
 </HTML>
-

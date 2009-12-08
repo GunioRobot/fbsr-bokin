@@ -42,12 +42,12 @@
 
 {% if object_list %}
     <table>
-    {% for event in object_list %}
-        <tr><td><a href="../atburdur/{{ event.id }}/view">{{ event.Name }}</a></td><td>{{ event.OpenDate }}</td></tr>
+    {% for up in object_list %}
+        <tr><td><img src="{{ up.ImageUrl }}"/></td><td><a href="../notandi/{{ up.id }}/view">{{ up.SSN}}</a></td><td>{{ up.User}}</td><td>{{ up.PhoneNumer}}</td></tr>
     {% endfor %}
     </table>
 {% else %}
-    <p>No events are available.</p>
+    <p>No userprofiles are available.</p>
 {% endif %}
 
 
@@ -59,7 +59,7 @@
 
 							<ul class="menu">
 								<li><a href="../..">Aðalsíða</a></li>
-								<li><a href="../notendur">Notendur</a></li>
+								<li><a href="../atburdir">Síðustu atburðir</a></li>
 								<li><a href="">Tölfræði</a></li>
 								<li><a href="">Lager</a></li>
 							</ul>

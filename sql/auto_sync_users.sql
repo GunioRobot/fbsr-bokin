@@ -4,6 +4,81 @@ DROP PROCEDURE IF EXISTS `auto_sync_users`$$
 CREATE DEFINER=`fbsr`@`%` PROCEDURE `auto_sync_users`()
 BEGIN
 
+/* =======breyta nilla í fbsr.is user======================================*/
+/*log duplicate fbsr.is ssn*/
+insert into auto_log (dt, db_entity, event_group)
+select current_timestamp(), ajc.user_id, 'fbsr.is duplicate error'  
+from auto_jos_comprofiler ajc, bokin_userprofile bu
+where 
+	ajc.ssn=bu.ssn
+	and ajc.user_id<>bu.user_id
+	and ajc.user_id in (select ajc2.user_id from auto_jos_comprofiler ajc2 where ajc2.ssn=ajc.ssn);
+
+
+savepoint s0;
+BEGIN
+DECLARE EXIT HANDLER FOR SQLEXCEPTION begin
+	/* on exception, log error and rollback*/
+	insert into auto_log (dt, db_entity, event_group)
+	select current_timestamp(), bu.user_id, 'convert to fbsr error'  
+	from auto_jos_comprofiler ajc, bokin_userprofile bu
+		where 
+			ajc.ssn=bu.ssn
+			and ajc.user_id<>bu.user_id
+			and ajc.user_id not in (select ajc2.user_id from auto_jos_comprofiler ajc2 where ajc2.ssn=ajc.ssn);
+	rollback to savepoint s0;
+end;
+/* log convertion*/
+insert into auto_log (dt, db_entity, event_group)
+select current_timestamp(), bu.user_id, 'convert to fbsr'  
+from auto_jos_comprofiler ajc, bokin_userprofile bu
+	where 
+		ajc.ssn=bu.ssn
+		and ajc.user_id<>bu.user_id
+		and ajc.user_id not in (select ajc2.user_id from auto_jos_comprofiler ajc2 where ajc2.ssn=ajc.ssn);
+		
+update auth_user au 
+set au.id=
+	(select ajc.user_id from auto_jos_comprofiler ajc, bokin_userprofile bu
+		where 
+			ajc.ssn=bu.ssn
+			and ajc.user_id<>bu.user_id)
+where 
+exists (select * from auto_jos_comprofiler ajc, bokin_userprofile bu
+		where 
+			ajc.ssn=bu.ssn
+			and ajc.user_id<>bu.user_id
+			and ajc.user_id not in (select ajc2.user_id from auto_jos_comprofiler ajc2 where ajc2.ssn=ajc.ssn)
+			and au.id=bu.user_id);
+
+update bokin_eventregistration ber 
+set ber.user_id=
+	(select ajc.user_id from auto_jos_comprofiler ajc, bokin_userprofile bu
+		where 
+			ajc.ssn=bu.ssn
+			and ajc.user_id<>bu.user_id)
+where 
+exists (select * from auto_jos_comprofiler ajc, bokin_userprofile bu
+		where 
+			ajc.ssn=bu.ssn
+			and ajc.user_id<>bu.user_id
+			and ajc.user_id not in (select ajc2.user_id from auto_jos_comprofiler ajc2 where ajc2.ssn=ajc.ssn)
+			and ber.user_id=bu.user_id);
+
+update bokin_userprofile bup
+set bup.user_id=
+	(select ajc.user_id from auto_jos_comprofiler ajc
+		where 
+			ajc.ssn=bup.ssn
+			and ajc.user_id<>bup.user_id)
+where 
+exists (select * from auto_jos_comprofiler ajc
+		where 
+			ajc.ssn=bup.ssn
+			and ajc.user_id<>bup.user_id
+			and ajc.user_id not in (select ajc2.user_id from auto_jos_comprofiler ajc2 where ajc2.ssn=ajc.ssn));
+END;
+commit;
 /* =======insert into auth_user ==========================================*/
 savepoint s1;
 BEGIN
@@ -102,7 +177,8 @@ update auth_user au
 set au.username = (select ju.username from jos_users ju where au.id=ju.id),
 au.email = (select ju.email from jos_users ju where au.id=ju.id),
 au.password = (select ju.password from jos_users ju where au.id=ju.id),
-au.first_name = (select ju.name from jos_users ju where au.id=ju.id)
+au.first_name = (select ju.name from jos_users ju where au.id=ju.id),
+au.last_name = ''
 where exists(
 	select ju.id 
 	from jos_users ju

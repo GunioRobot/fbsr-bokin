@@ -40,15 +40,33 @@
 					<div id="left-column">
 						<div class="inside-column">
 
-{% if object_list %}
+<h1>{{ event.Name }}</h1>
+
+{%regroup eventreg|dictsort:"event_name" by event_name as event_name_list %} 
+<ul>
+{% for event_name in event_name_list %}
+    <li><H2>{{ event_name.grouper }} <b>({{event_name.list|length}})</b></H2>
+    <ul>
     <table>
-    {% for event in object_list %}
-        <tr><td><a href="../atburdur/{{ event.id }}/view">{{ event.Name }}</a></td><td>{{ event.OpenDate }}</td></tr>
-    {% endfor %}
+        {% for item in event_name.list %}
+	<tr>
+	<td>{{item.registereddate}}</td>
+	{% if item.imageurl %}
+	  <td><img src="{{item.imageurl}}" class="reduced50"/></td>
+	{% else %}
+	    <td><img src="./media/nilli.jpg" class="reduced50"/></td>
+	{% endif %}
+
+      	
+	<td><b>{{ item.fullname }}</b> {{ item.user_group}} {{ item.PhoneNumer}}</td>
+	<td></td>
+	</tr>
+        {% endfor %}
     </table>
-{% else %}
-    <p>No events are available.</p>
-{% endif %}
+    </ul>
+    </li>
+{% endfor %}
+</ul>
 
 
 
@@ -58,8 +76,8 @@
 						<div class="inside-column">
 
 							<ul class="menu">
-								<li><a href="../..">Aðalsíða</a></li>
-								<li><a href="../notendur">Notendur</a></li>
+								<li><a href="../../../..">Aðalsíða</a></li>
+								<li><a href="../../../atburdir">Síðustu atburðir</a></li>
 								<li><a href="">Tölfræði</a></li>
 								<li><a href="">Lager</a></li>
 							</ul>
@@ -93,4 +111,3 @@
 
 </BODY>
 </HTML>
-

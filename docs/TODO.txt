@@ -1,15 +1,12 @@
 TODO
   skrá birgðir á persónur
   forskrá atburði af google calander (fjallasvið, fallhlífarsvið, ..)
-  laga max userid á production
-  breyta bokin nilla í inngenginn
   láta mynd af fbsr yfir skrifa nilla mynd ef til staðar
-  setja refres á forsíðu
   sortera atburði í skrá nýjan
   geta skráð á lokaða atburði (ef maður gleymdi að skrá sig)
   ef kennitala finnst ekki linkur á nýskrá
-  lookup á kennitölur 
-  velja marga í einu í innskráningu
+  lookup á kennitölur (ajax auto complete)
+  velja marga í einu í innskráningu??
   hætta við útskráningu
   skrá inn með aðgangskorti
   atburða listi

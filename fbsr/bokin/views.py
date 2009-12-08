@@ -22,16 +22,25 @@ def current_registrations():
     from django.db import connection
     cursor = connection.cursor()
     cursor.execute("SELECT id, imageurl, event_name, event_type, date_format(registereddate,'%%Y-%%m-%%d %%H:%%i') as registereddate, fullname , replace(user_group,'Inngenginn','') as user_group, PhoneNumer FROM event_registrations WHERE unregistereddate is null order by event_name, user_group, registereddate") 
+    dic = getDictsFromCursor(cursor)
     #cursor.close()
-    return getDictsFromCursor(cursor)
+    return dic
 
+def registrations(event_id):
+    from django.db import connection
+    cursor = connection.cursor()
+    cursor.execute("SELECT id, imageurl, event_name, event_type, date_format(registereddate,'%%Y-%%m-%%d %%H:%%i') as registereddate, fullname , replace(user_group,'Inngenginn','') as user_group, PhoneNumer FROM event_registrations WHERE event_id="+event_id+" order by event_name, user_group, registereddate") 
+    dic = getDictsFromCursor(cursor)
+    #cursor.close()
+    return dic
+
+# innra fall kallar í db til að sækja user_id á nýliða
 def get_userid():
     from django.db import connection
     cursor = connection.cursor()
     cursor.execute("select get_userid() from dual")
+    nextRow = cursor.fetchone()[0]
     cursor.close()
-    nextRow = cursor.fetchone()
-    #print nextRow
     return nextRow
 
 
@@ -126,3 +135,8 @@ def register_nilli(request):
     userprofileform= UserProfileForm()
     return render_to_response('bokin/stofna_nilla.html', {'userform': userform,'userprofileform':userprofileform})
 
+def view_event(request, event_id):
+    e = get_object_or_404(Event, pk=event_id)
+    #er = EventRegistration.objects.filter(Event=event_id) 
+    er = registrations(event_id)
+    return render_to_response('bokin/view_event.html', {'event': e, 'eventreg': er})
