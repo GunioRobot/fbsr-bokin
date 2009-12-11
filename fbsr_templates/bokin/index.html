@@ -139,6 +139,25 @@ function disableon(obj,div,selectedvalue) {
 <form action="/bokin/atburdur/skraning/" method="post">
   Kennitala: <input type="text" name="SSN" id="SSN" value="" onfocus="showhideon(document.getElementById('event_id'),'new_event','new')"/>
     
+
+
+  
+{% if eventform.errors %}
+  
+      <select id="event_id" name="event_id" onchange="showhideon(this,'new_event','new');hideshowon(this,'cancel_event','new');">
+      <option value="new">-- Skrá nýjan atburð --</option>
+    {% for event in open_events.all %}
+    <option value="{{ event.id }}">{{ event.Name }}</option>
+    {% endfor %}
+    
+    </select><br/>
+  
+  <div style="display: block;" id="new_event">
+  {{ eventform.as_p }}
+  
+  </div>
+ {% else %}
+ 
     <select id="event_id" name="event_id" onchange="showhideon(this,'new_event','new');hideshowon(this,'cancel_event','new');">
     {% for event in open_events.all %}
     <option value="{{ event.id }}">{{ event.Name }}</option>
@@ -146,14 +165,14 @@ function disableon(obj,div,selectedvalue) {
     <option value="new">-- Skrá nýjan atburð --</option>
     </select><br/>
 
-  
-
-  
-  <div style="display: none;" id="new_event">
+ 
+ <div style="display: none;" id="new_event">
   {{ eventform.as_p }}
   
   </div>
-  
+{% endif %}
+
+
       <input type="submit" name="bsubmit" value="Stimpla inn" /><br/>
     <input type="submit" name="bsubmit" value="Loka atburði" id="cancel_event"/><br/>
     <a href="/bokin/notandi/skra/">Skrá nýjan nilla</a>

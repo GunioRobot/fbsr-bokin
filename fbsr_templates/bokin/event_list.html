@@ -42,8 +42,9 @@
 
 {% if object_list %}
     <table>
+    <tr><td>Nafn</a></td><td>Byrjaði</td><td>Endaði</td></tr>
     {% for event in object_list %}
-        <tr><td><a href="../atburdur/{{ event.id }}/view">{{ event.Name }}</a></td><td>{{ event.OpenDate }}</td></tr>
+        <tr><td><a href="../atburdur/{{ event.id }}/view">{{ event.Name }}</a></td><td>{{ event.OpenDate }}</td><td>{{ event.CloseDate }}</td></tr>
     {% endfor %}
     </table>
 {% else %}
