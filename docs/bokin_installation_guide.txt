@@ -53,10 +53,10 @@ Setja þarf í kaflan [mysqld] í skránni /etc/mysql/my.cnf
 Setja upp git	(gitk er einnig sniðugt tól til að skoða framvindu bókarinnar)
   sudo aptitude install git-core
   
-Ná í nýjustu bokin af git útgáfustýringu einhverstaðar (Tala við Sigurbjart eða Axel)
-Dæmi hér að neðan notar sftp í gegnum ssh þjón, svo komast þarf að því hvar bokin liggur í dag:
-  fbsr@bokin-desktop:~/fbsr$ git clone notandi@einhver_tölva:/home/fbsr/fbsr
-
+Ná í nýjustu bokin af github
+Dæmi: 
+  fbsr@bokin-desktop:~/fbsr$ git clone git@github.com:axeltomasson/fbsr-bokin.git
+  
 Býr til skáarsafnið /home/fbsr/fbsr
 
 Seinna til að sækja nýrri útgáfu
