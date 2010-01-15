@@ -3,7 +3,7 @@ Git repository er í skráa safninu .git.
 
 Ná í nýjustu bokin af github á slóðinni http://github.com/axeltomasson/fbsr-bokin
 Dæmi:
-  fbsr@bokin-desktop:~/fbsr$ git clone git@github.com:axeltomasson/fbsr-bokin.git
+  fbsr@bokin-desktop:~$ git clone git://github.com/axeltomasson/fbsr-bokin.git
 Seinna til að sækja nýrri útgáfu
   fbsr@bokin-desktop:~/fbsr/fbsr$ git pull
 

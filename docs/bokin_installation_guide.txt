@@ -55,9 +55,9 @@ Setja upp git	(gitk er einnig sniðugt tól til að skoða framvindu bókarinnar
   
 Ná í nýjustu bokin af github
 Dæmi: 
-  fbsr@bokin-desktop:~/fbsr$ git clone git@github.com:axeltomasson/fbsr-bokin.git
+  fbsr@bokin-desktop:~$ git clone git://github.com/axeltomasson/fbsr-bokin.git
   
-Býr til skáarsafnið /home/fbsr/fbsr
+Býr til skáarsafnið /home/fbsr/fbsr-bokin
 
 Seinna til að sækja nýrri útgáfu
   fbsr@bokin-desktop:~/fbsr/fbsr$ git pull
