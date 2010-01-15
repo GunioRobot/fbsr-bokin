@@ -19,9 +19,9 @@ Apache 2.2.* og mod_wsgi
   sudo aptitude install apache2 libapache2-mod_wsgi
   
 Setja í /etc/apache2/httpd.conf
-  Alias /media/ /home/fbsr/fbsr/fbsr_media/
+  Alias /media/ /home/fbsr/fbsr-bokin/fbsr_media/
 
-  <Directory /home/fbsr/fbsr/fbsr_media>
+  <Directory /home/fbsr/fbsr-bokin/fbsr_media>
   Order deny,allow
   Allow from all
   </Directory>
@@ -33,9 +33,9 @@ Setja í /etc/apache2/httpd.conf
   Allow from all
   </Directory>
 
-  WSGIScriptAlias / /home/fbsr/fbsr/fbsr/django.wsgi
+  WSGIScriptAlias / /home/fbsr/fbsr-bokin/fbsr/django.wsgi
 
-  <Directory /home/fbsr/fbsr/fbsr>
+  <Directory /home/fbsr/fbsr-bokin/fbsr>
   Order allow,deny
   Allow from all
   </Directory>
@@ -60,11 +60,11 @@ Dæmi:
 Býr til skáarsafnið /home/fbsr/fbsr-bokin
 
 Seinna til að sækja nýrri útgáfu
-  fbsr@bokin-desktop:~/fbsr/fbsr$ git pull
+  fbsr@bokin-desktop:~/fbsr/fbsr-bokin$ git pull
 
-Passa að /home/fbsr/fbsr/fbsr/settings.py inni haldi rétt template skrásafn þ.e. línurnar:
+Passa að /home/fbsr/fbsr-bokin/fbsr/settings.py inni haldi rétt template skrásafn þ.e. línurnar:
   TEPMLATE_DIRS = (
-    '/home/fbsr/fbsr/fbsr_templates'
+    '/home/fbsr/fbsr-bokin/fbsr_templates'
     )
 
 Einnig þarf að passa að línan static serve í urls.py með site_media urli á ekki að vera virk.
@@ -74,7 +74,7 @@ Stofna schema fbsr í mysql.
 Búa til notanda fbsr sem hefur öll völd á schemaið.
 
 Búa til ganga grunn í gengum django
-  fbsr@bokin-desktop:~/fbsr/fbsr$ python manage.py syncdb
+  fbsr@bokin-desktop:~/fbsr/fbsr-bokin$ python manage.py syncdb
   svara já við að búa til admin notanda (fbsr)
 
 Ath hér í næstu skrefum gæti þurft að taka út vitlaust schema nafn (dæmi fbsr2 kemur fyrir í nokkrum skrám)
