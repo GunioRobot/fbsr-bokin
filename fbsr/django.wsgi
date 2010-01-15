@@ -1,7 +1,7 @@
 import os
 import sys
-sys.path.append('/home/fbsr/fbsr')
-sys.path.append('/home/fbsr/fbsr/fbsr')
+sys.path.append('/home/fbsr/fbsr-bokin')
+sys.path.append('/home/fbsr/fbsr-bokin/fbsr')
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
