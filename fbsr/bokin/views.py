@@ -62,10 +62,7 @@ def register_on_event(request):
     open_events = Event.objects.filter(Q(CloseDate__gte=datetime.datetime.now()) | Q(CloseDate__isnull=True))
     curr_reg = current_registrations()
     eventform = EventForm(request.POST)    
-    if eventform.is_valid():
-      pass
-    else:
-      return render_to_response('bokin/index.html', {'object': UserProfile,'error_message': "Notandi fannst ekki.",'open_events': open_events, 'current_registrations': curr_reg, 'eventform': eventform})
+
     
     try:
       up=UserProfile.objects.get(SSN=request.POST['SSN'])
@@ -78,6 +75,10 @@ def register_on_event(request):
         return render_to_response('bokin/index.html', {'object': User,'error_message': "Notandi fannst ekki.",'open_events': open_events, 'current_registrations': curr_reg, 'eventform': eventform})
     
     if request.POST['event_id']=='new':
+      if eventform.is_valid():
+        pass
+      else:
+        return render_to_response('bokin/index.html', {'object': UserProfile,'error_message': "Notandi fannst ekki.",'open_events': open_events, 'current_registrations': curr_reg, 'eventform': eventform})
       event=eventform.save(commit=False)
       event.User_id=selected_user.id
       event.save()
