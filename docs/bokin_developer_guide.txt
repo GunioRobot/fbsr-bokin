@@ -7,6 +7,9 @@ Dæmi:
 Seinna til að sækja nýrri útgáfu
   fbsr@bokin-desktop:~/fbsr/fbsr$ git pull
 
+Stilla git þannig að breytingar á settings.py og django.wsgi sé ekki pushað á github, því þær þarf hver developer að stilla fyrir sig.
+  git update-index --assume-unchanged settings.py
+  git update-index --assume-unchanged django.wsgi
 
 == Lýsing á skrásöfnum ==
   docs				Greiningar og leiðbeiningar
