@@ -63,6 +63,50 @@ class SiteController extends Controller
 		));	}
 
 	/**
+	 * This is the default 'index' action that is invoked
+	 * when an action is not explicitly requested by users.
+	 */
+	public function actionTop10()
+	{
+/*		$model=new BokinEventregistration('register');
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['BokinEventregistration']))
+		{
+			$model->attributes=$_POST['BokinEventregistration'];
+			if($model->save())
+				$this->redirect(array('index'));
+		}
+
+		$events = BokinEvent::model()->active()->findAll();
+		$dataProvider = array();
+		foreach($events as $event) {
+			$dataProvider[]=new CActiveDataProvider('BokinEventregistration',array(
+    			'criteria'=>array(
+					'condition'=>'Event_id=:Event_id and UnregisteredDate is null',
+					'params'=> array(':Event_id'=>$event->id),
+					'with'=>array('user.jos_comprofilers'),
+    				'order'=>'cb_nylidi ASC',
+				)));
+		}
+		*/
+		$sql='select ju.name, sum(ifnull(UnRegisteredDate - RegisteredDate, now()-RegisteredDate))/3600 as delta from bokin_eventregistration ber, jos_users ju where ber.user_id=ju.id and registereddate > now()- INTERVAL 7 day group by user_id order by delta desc;';
+		$command= Yii::app()->db->createCommand($sql);
+		$top_7days=$command->query();
+		$sql='select ju.name, sum(ifnull(UnRegisteredDate - RegisteredDate, now()-RegisteredDate))/3600 as delta from bokin_eventregistration ber, jos_users ju where ber.user_id=ju.id and registereddate > now()- INTERVAL 30 day group by user_id order by delta desc;';
+		$command= Yii::app()->db->createCommand($sql);
+		$top_30days=$command->query();
+		$this->render('top10',array(
+			'top30'=>$top_30days,
+			'top7'=>$top_7days,
+			//'dataProvider'=>$dataProvider
+		));	
+		
+	}
+		
+	/**
 	 * This is the action to handle external exceptions.
 	 */
 	public function actionError()
