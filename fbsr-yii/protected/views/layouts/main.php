@@ -34,6 +34,7 @@
 				array('label'=>'Stofna atburð', 'url'=>array('/bokinEvent/create')),
 				array('label'=>'Stofna notanda', 'url'=>array('/josUsers/stofnaNilla')),
 				array('label'=>'Sjóðandi heitir', 'url'=>array('/site/top10')),
+				array('label'=>'Liðnir atburðir', 'url'=>array('/bokinEvent/list')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),

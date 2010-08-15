@@ -1,5 +1,7 @@
 <?php
 
+Yii::import('application.extensions.arrayDataProvider.*');
+
 class SiteController extends Controller
 {
 	/**
@@ -68,44 +70,35 @@ class SiteController extends Controller
 	 */
 	public function actionTop10()
 	{
-/*		$model=new BokinEventregistration('register');
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['BokinEventregistration']))
-		{
-			$model->attributes=$_POST['BokinEventregistration'];
-			if($model->save())
-				$this->redirect(array('index'));
-		}
-
-		$events = BokinEvent::model()->active()->findAll();
-		$dataProvider = array();
-		foreach($events as $event) {
-			$dataProvider[]=new CActiveDataProvider('BokinEventregistration',array(
-    			'criteria'=>array(
-					'condition'=>'Event_id=:Event_id and UnregisteredDate is null',
-					'params'=> array(':Event_id'=>$event->id),
-					'with'=>array('user.jos_comprofilers'),
-    				'order'=>'cb_nylidi ASC',
-				)));
-		}
-		*/
-		$sql='select ju.name, sum(ifnull(UnRegisteredDate - RegisteredDate, now()-RegisteredDate))/3600 as delta from bokin_eventregistration ber, jos_users ju where ber.user_id=ju.id and registereddate > now()- INTERVAL 7 day group by user_id order by delta desc;';
-		$command= Yii::app()->db->createCommand($sql);
-		$top_7days=$command->query();
-		$sql='select ju.name, sum(ifnull(UnRegisteredDate - RegisteredDate, now()-RegisteredDate))/3600 as delta from bokin_eventregistration ber, jos_users ju where ber.user_id=ju.id and registereddate > now()- INTERVAL 30 day group by user_id order by delta desc;';
-		$command= Yii::app()->db->createCommand($sql);
-		$top_30days=$command->query();
 		$this->render('top10',array(
-			'top30'=>$top_30days,
-			'top7'=>$top_7days,
-			//'dataProvider'=>$dataProvider
+			'dp7' =>$this->top(7),
+			'dp30' =>$this->top(30),
+			'dp365' =>$this->top(365),
 		));	
 		
 	}
-		
+
+	private function top($days) {
+		$sql='select ju.name, sum(ifnull(UnRegisteredDate - RegisteredDate, now()-RegisteredDate))/3600 as delta from bokin_eventregistration ber, jos_users ju where ber.user_id=ju.id and registereddate > now()- INTERVAL '.$days.' day group by user_id order by delta desc;';
+		$command= Yii::app()->db->createCommand($sql);
+		$top_Xdays=$command->queryAll();
+		foreach($top_Xdays as $i => $row) {
+			$top_Xdays[$i]['i']=$i+1;
+			$top_Xdays[$i]['delta_str']=$this->hours2dayshours($row['delta']);
+		}
+		return new ArrayDataProvider($top_Xdays);
+	}
+	
+	private function hours2dayshours($hours) {
+		$d = floor ($hours / 24);
+		$h = floor (($hours - $d * 24) );
+		if ($d == 0) {
+			return round($h).' klst';
+		} else {
+			return $d.' dagar '.round($h).' klst';	
+		}
+	} 
+	
 	/**
 	 * This is the action to handle external exceptions.
 	 */

@@ -32,7 +32,7 @@ class BokinEventController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','loka','create'),
+				'actions'=>array('index','view','loka','create','list'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -167,6 +167,17 @@ class BokinEventController extends Controller
 
 		$this->render('admin',array(
 			'model'=>$model,
+		));
+	}
+	
+	/**
+	 * Manages all models.
+	 */
+	public function actionList()
+	{
+		$dataProvider=new CActiveDataProvider('BokinEvent');
+		$this->render('list',array(
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
