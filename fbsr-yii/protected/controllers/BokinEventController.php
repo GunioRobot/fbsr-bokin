@@ -63,7 +63,7 @@ class BokinEventController extends Controller
 	public function actionCreate()
 	{
 		$model=new BokinEvent;
-		
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -93,7 +93,7 @@ class BokinEventController extends Controller
 		}
 
 		$divisions = BokinDivision::model()->findAll();
-		
+
 		$this->render('create',array(
 			'model'=>$model,
 			'divisions'=>$divisions,
@@ -117,7 +117,7 @@ class BokinEventController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
-		
+
 		$divisions = BokinDivision::model()->findAll();
 
 		$this->render('update',array(
@@ -169,7 +169,7 @@ class BokinEventController extends Controller
 			'model'=>$model,
 		));
 	}
-	
+
 	/**
 	 * Manages all models.
 	 */
@@ -198,7 +198,7 @@ class BokinEventController extends Controller
 		if(!isset($_GET['ajax']))
 			$this->redirect(array('site/index'));
 	}
-	
+
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

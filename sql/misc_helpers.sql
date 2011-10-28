@@ -1,5 +1,5 @@
 /*sækja nýlegar villur*/
-SELECT * FROM auto_log a 
+SELECT * FROM auto_log a
 where upper(event_group) like '%ERROR%'
 and dt > curdate() -1
 LIMIT 0,1000

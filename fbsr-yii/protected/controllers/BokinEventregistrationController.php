@@ -173,7 +173,7 @@ class BokinEventregistrationController extends Controller
 			Yii::app()->end();
 		}
 	}
-	
+
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'index' page.

@@ -14,7 +14,7 @@ Stilla git þannig að breytingar á settings.py og django.wsgi sé ekki pushað
 == Lýsing á skrásöfnum ==
   docs				Greiningar og leiðbeiningar
   fbsr				Django python skrár
-    bokin/models/models.py	Skilgreining á db er í skránni 
+    bokin/models/models.py	Skilgreining á db er í skránni
     bokin/views.py		Aðal kóði verkefnisins
     urls.py			stillingar
     settings.py			stillingar
@@ -63,7 +63,7 @@ Bokin_asset og Bokin_assetregistration eru óútfærðar í viðmóti en var hug
   get_userid
       sækir næsta lausa notenda id fyrir nýliða, yfir 100000, til að rekast ekki á id frá fbsr.is
       django síða notar þetta við stofnun á nýliðum
-      
+
 Eitt view er í grunninum
   event_registrations
       notað til að birta forsíðu hverjir eru skráðir á hvað

@@ -16,7 +16,7 @@ class UserIdentity extends CUserIdentity
 	 * @return boolean whether authentication succeeds.
 	 */
 	private $_id;
-	
+
 	public function authenticate()
 	{
 		$this->username = strtolower($this->username);
@@ -46,13 +46,13 @@ class UserIdentity extends CUserIdentity
 				}
     	        $this->errorCode=self::ERROR_NONE;
 			}
-		} 
+		}
 		return !$this->errorCode;
 	}
-	
+
  	public function getId()
     {
         return $this->_id;
     }
-	
+
 }

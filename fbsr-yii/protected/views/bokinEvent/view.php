@@ -25,4 +25,4 @@ $this->menu=array(
 		'OpenDate',
 		'CloseDate',
 	),
-)); 
+));

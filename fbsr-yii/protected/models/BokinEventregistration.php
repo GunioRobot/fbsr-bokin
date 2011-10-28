@@ -57,7 +57,7 @@ class BokinEventregistration extends CActiveRecord
 			)
 		);
 	}
-	
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -94,11 +94,11 @@ class BokinEventregistration extends CActiveRecord
 		        'condition'=>'UnregisteredDate is null AND User_id = :User_id',
         		'params'=>array(':User_id'=>$this->User_id),
 				));
-		
+
 		if($registration)
 			$this->addError('User_id','Þegar skráður á atburð');
 	}
-	
+
 	public function scopes() {
 		return array(
     	'active'=>array(
@@ -106,7 +106,7 @@ class BokinEventregistration extends CActiveRecord
     		),
 		);
 	}
-	
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

@@ -42,7 +42,7 @@
 
 <h1>{{ event.Name }}</h1>
 
-{%regroup eventreg|dictsort:"event_name" by event_name as event_name_list %} 
+{%regroup eventreg|dictsort:"event_name" by event_name as event_name_list %}
 <ul>
 {% for event_name in event_name_list %}
     <li><H2>{{ event_name.grouper }} <b>({{event_name.list|length}})</b></H2>
@@ -57,7 +57,7 @@
 	    <td><img src="./media/nilli.jpg" class="reduced50"/></td>
 	{% endif %}
 
-      	
+
 	<td><b>{{ item.fullname }}</b> {{ item.user_group}} {{ item.PhoneNumer}}</td>
 	<td></td>
 	</tr>
@@ -82,7 +82,7 @@
 								<li><a href="">Lager</a></li>
 							</ul>
 							<p class="block">
-							
+
 							<DIV id="error">
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 </DIV>
@@ -90,7 +90,7 @@
 
 
 
-							
+
 							</p>
 						</div>
 					</div>

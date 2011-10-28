@@ -6,7 +6,7 @@ En það er alls ekki forsenda.
 
 Setja upp Ubuntu (sjá http://www.ubuntu.com/getubuntu/download)
 Python 2.6.4rc2 eða hærra (fylgir með Ubuntu 9.10)
-  
+
 Eftir uppsetningu á Ubuntu þarf að uppfæra Ubuntu, gert með því að keyra:
   sudo aptitude update
   sudo aptitude full-upgrade
@@ -17,7 +17,7 @@ Best er að búa til tvo notendur
 
 Apache 2.2.* og mod_wsgi
   sudo aptitude install apache2 libapache2-mod_wsgi
-  
+
 Setja í /etc/apache2/httpd.conf
   Alias /media/ /home/fbsr/fbsr-bokin/fbsr_media/
 
@@ -49,14 +49,14 @@ MySQL 5.1.37 eða hærra
 
 Setja þarf í kaflan [mysqld] í skránni /etc/mysql/my.cnf
   event_scheduler=ON
- 
+
 Setja upp git	(gitk er einnig sniðugt tól til að skoða framvindu bókarinnar)
   sudo aptitude install git-core
-  
+
 Ná í nýjustu bokin af github
-Dæmi: 
+Dæmi:
   fbsr@bokin-desktop:~$ git clone git://github.com/axeltomasson/fbsr-bokin.git
-  
+
 Býr til skáarsafnið /home/fbsr/fbsr-bokin
 
 Seinna til að sækja nýrri útgáfu
@@ -85,14 +85,14 @@ Setja þarf joomla notendur af fbsr.is inní grunn, það þýðir að setja inn
   jos_users (sjá skránna sql/jos_users.sql)
   jos_comprofiler (sjá skránna sql/jos_comprofiler.sql)
 
-Búa þarf til í grunninum inní schema fbsr 
+Búa þarf til í grunninum inní schema fbsr
   viewið event_registrations (sjá sql/db_objects.sql)
   viewið auto_jos_comprofiler (sjá sql/auto_jos_comprofiler.sql)
   töfluna auto_log (sjá sql/db_objects.sql)
   stefjuna auto_signout (sjá sql/auto_signout.sql
   stefjuna auto_sync_users (sjá sql/auto_sync_users.sql)
   stefjuna get_userid (sjá sql/get_userid.sql)
-  
+
 Einnig þarf að skrá tvo eventa (auto_signout og auto_sync_users) og kveikja á global event scheduler (sjá sql/db_objects.sql)
 
 Loks hækka auto increment á töflunni auth_user (sjá sql/db_objects.sql)

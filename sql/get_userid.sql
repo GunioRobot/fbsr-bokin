@@ -8,7 +8,7 @@ BEGIN
      	select max(id) into userid from jos_users;
 	if userid < 100000 then
 		set userid= 100000;
-	else 
+	else
 		set userid=userid+1;
 	end if;
      	RETURN userid;

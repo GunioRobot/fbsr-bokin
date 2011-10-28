@@ -6,7 +6,7 @@ body {
 	font-family: 'Times New Roman', Times, serif;
 }
 a:hover {
-	text-decoration: none; 
+	text-decoration: none;
 }
 #page-container {
 	max-width: 1000px;
@@ -113,7 +113,7 @@ div.clear {
 	clear: both;
 	padding-bottom: 1px;
 }
-ul.menu, 
+ul.menu,
 ul.menu li {
 	list-style: none;
 	margin: 0;
@@ -138,10 +138,10 @@ ul.menu li {
 body, div.cxf {
 	/*em*/
 	zbackground-color: #fcfcfc;
-	
+
 }
-ul.menu, 
-ul.menu li, 
+ul.menu,
+ul.menu li,
 #right-column .block {
 	border-color: #ccc;
 }

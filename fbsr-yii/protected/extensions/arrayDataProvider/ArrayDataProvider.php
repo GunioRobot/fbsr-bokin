@@ -4,23 +4,23 @@
  * @author			Chris Yates <chris.l.yates@gmail.com>
  * @copyright 	Copyright (c) 2010 PBM Web Development - All Rights Reserved
  * @package			arrayDataProvider
- * 
+ *
  * Copyright © 2010 by PBM Web Development
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  * Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
  * Redistributions in binary form must reproduce the above copyright notice,
  * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- * 
+ *
  * Neither the name of PBM Web Development nor the names of its contributors may
  * be used to endorse or promote products derived from this software without
  * specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -45,10 +45,10 @@
  * </pre>
  * where the data is accessed using the keys of the associative arrays as
  * attribute names.
- * 
+ *
  * <b>Note:</b> Attribute names (keys) <i>must be</i> valid
  * {@link http://www.php.net/manual/en/language.variables.basics.php PHP variable names}.
- * 
+ *
  * The array can also be an associative array or a simple array:
  * <pre>
  * array(
@@ -78,7 +78,7 @@ class ArrayDataProvider extends CDataProvider {
 	public $keyAttribute;
 	private $_array = array();
 	private $_criteria;
-	
+
 	/**
 	 * @param array The data
 	 * @return ArrayDataProvider
@@ -100,7 +100,7 @@ class ArrayDataProvider extends CDataProvider {
 				$array = $_array;
 			}
 			$this->_array = $array;
-			
+
 			$this->sort = new ArraySort(array_keys(array_shift($array)));
 		}
 	}
@@ -129,7 +129,7 @@ class ArrayDataProvider extends CDataProvider {
 		$this->_criteria =
 				$value instanceof CDbCriteria ? $value : new CDbCriteria($value);
 	}
-	
+
 	/**
 	 * Fetches the data.
 	 * @return array list of data items
@@ -157,7 +157,7 @@ class ArrayDataProvider extends CDataProvider {
 		if (isset($this->keyAttribute)) {
 			$keys = array();
 			foreach ($data as $datum) {
-				$keys[] = $datum[$this->keyAttribute];			
+				$keys[] = $datum[$this->keyAttribute];
 			} // foreach
 		}
 		else {
@@ -173,7 +173,7 @@ class ArrayDataProvider extends CDataProvider {
 	protected function calculateTotalItemCount() {
 		return count($this->array);
 	}
-	
+
 	/**
 	 * Sorts the array according to the criteria
 	 * @param string The keys to sort by
@@ -187,7 +187,7 @@ class ArrayDataProvider extends CDataProvider {
 				$attributes[] = $orderBy[0];
 				$directions[] = (isset($orderBy[1]) ? SORT_DESC : SORT_ASC);
 			} // foreach
-			
+
 			$sortArgs = array();
 			foreach ($attributes as $index=>$attribute) {
 				$$attribute = array();

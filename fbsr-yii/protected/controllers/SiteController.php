@@ -8,7 +8,7 @@ class SiteController extends Controller
 	 * @var CActiveRecord the currently loaded data model instance.
 	 */
 	private $_model;
-	
+
 	/**
 	 * Declares class-based actions.
 	 */
@@ -57,7 +57,7 @@ class SiteController extends Controller
     				'order'=>'cb_nylidi ASC',
 				)));
 		}
-		
+
 		$this->render('index',array(
 			'model'=>$model,
 			'events'=>$events,
@@ -74,8 +74,8 @@ class SiteController extends Controller
 			'dp7' =>$this->top(7),
 			'dp30' =>$this->top(30),
 			'dp365' =>$this->top(365),
-		));	
-		
+		));
+
 	}
 
 	private function top($days) {
@@ -88,17 +88,17 @@ class SiteController extends Controller
 		}
 		return new ArrayDataProvider($top_Xdays);
 	}
-	
+
 	private function hours2dayshours($hours) {
 		$d = floor ($hours / 24);
 		$h = floor (($hours - $d * 24) );
 		if ($d == 0) {
 			return round($h).' klst';
 		} else {
-			return $d.' dagar '.round($h).' klst';	
+			return $d.' dagar '.round($h).' klst';
 		}
-	} 
-	
+	}
+
 	/**
 	 * This is the action to handle external exceptions.
 	 */
@@ -174,7 +174,7 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
-	
+
     //Action
     public function actionUserLookup()
     {
@@ -183,9 +183,9 @@ class SiteController extends Controller
             /* q is the default GET variable name that is used by
             / the autocomplete widget to pass in user input
             */
-          $name = $_GET['q']; 
+          $name = $_GET['q'];
                     // this was set with the "max" attribute of the CAutoComplete widget
-          $limit = min($_GET['limit'], 50); 
+          $limit = min($_GET['limit'], 50);
           $criteria = new CDbCriteria;
           $criteria->condition = "name LIKE :sterm";
           $criteria->params = array(":sterm"=>"%$name%");

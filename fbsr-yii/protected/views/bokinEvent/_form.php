@@ -19,21 +19,21 @@
 		<?php $this->widget('CAutoComplete',
           array(
                          //name of the html field that will be generated
-             'name'=>'User_name', 
+             'name'=>'User_name',
                          //replace controller/action with real ids
-             'url'=>array('site/userLookup'), 
+             'url'=>array('site/userLookup'),
              'max'=>10, //specifies the max number of items to display
- 
-                         //specifies the number of chars that must be entered 
+
+                         //specifies the number of chars that must be entered
                          //before autocomplete initiates a lookup
-             'minChars'=>2, 
+             'minChars'=>2,
              'delay'=>100, //number of milliseconds before lookup occurs
              'matchCase'=>false, //match case when performing a lookup?
- 
-                         //any additional html attributes that go inside of 
+
+                         //any additional html attributes that go inside of
                          //the input field can be defined here
-             'htmlOptions'=>array('size'=>'40'), 
- 
+             'htmlOptions'=>array('size'=>'40'),
+
              'methodChain'=>".result(function(event,item){\$(\"#BokinEvent_User_id\").val(item[1]);})",
              ));    ?>
              <?php endif; ?>
@@ -65,7 +65,7 @@ array("id"=>"d_button","class"=>"pointer")); ?>
     	'button'=>'d_button',
     ));
     ?>
-		
+
 		<?php echo $form->error($model,'OpenDate'); ?>
 	</div>
 

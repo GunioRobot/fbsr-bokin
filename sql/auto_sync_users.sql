@@ -7,9 +7,9 @@ BEGIN
 /* =======breyta nilla í fbsr.is user======================================*/
 /*log duplicate fbsr.is ssn*/
 insert into auto_log (dt, db_entity, event_group)
-select current_timestamp(), ajc.user_id, 'fbsr.is duplicate error'  
+select current_timestamp(), ajc.user_id, 'fbsr.is duplicate error'
 from auto_jos_comprofiler ajc, bokin_userprofile bu
-where 
+where
 	ajc.ssn=bu.ssn
 	and ajc.user_id<>bu.user_id
 	and ajc.user_id in (select ajc2.user_id from auto_jos_comprofiler ajc2 where ajc2.ssn=ajc.ssn);
@@ -20,9 +20,9 @@ BEGIN
 DECLARE EXIT HANDLER FOR SQLEXCEPTION begin
 	/* on exception, log error and rollback*/
 	insert into auto_log (dt, db_entity, event_group)
-	select current_timestamp(), bu.user_id, 'convert to fbsr error'  
+	select current_timestamp(), bu.user_id, 'convert to fbsr error'
 	from auto_jos_comprofiler ajc, bokin_userprofile bu
-		where 
+		where
 			ajc.ssn=bu.ssn
 			and ajc.user_id<>bu.user_id
 			and ajc.user_id not in (select ajc2.user_id from auto_jos_comprofiler ajc2 where ajc2.ssn=ajc.ssn);
@@ -30,36 +30,36 @@ DECLARE EXIT HANDLER FOR SQLEXCEPTION begin
 end;
 /* log convertion*/
 insert into auto_log (dt, db_entity, event_group)
-select current_timestamp(), bu.user_id, 'convert to fbsr'  
+select current_timestamp(), bu.user_id, 'convert to fbsr'
 from auto_jos_comprofiler ajc, bokin_userprofile bu
-	where 
+	where
 		ajc.ssn=bu.ssn
 		and ajc.user_id<>bu.user_id
 		and ajc.user_id not in (select ajc2.user_id from auto_jos_comprofiler ajc2 where ajc2.ssn=ajc.ssn);
-		
-update auth_user au 
+
+update auth_user au
 set au.id=
 	(select ajc.user_id from auto_jos_comprofiler ajc, bokin_userprofile bu
-		where 
+		where
 			ajc.ssn=bu.ssn
 			and ajc.user_id<>bu.user_id)
-where 
+where
 exists (select * from auto_jos_comprofiler ajc, bokin_userprofile bu
-		where 
+		where
 			ajc.ssn=bu.ssn
 			and ajc.user_id<>bu.user_id
 			and ajc.user_id not in (select ajc2.user_id from auto_jos_comprofiler ajc2 where ajc2.ssn=ajc.ssn)
 			and au.id=bu.user_id);
 
-update bokin_eventregistration ber 
+update bokin_eventregistration ber
 set ber.user_id=
 	(select ajc.user_id from auto_jos_comprofiler ajc, bokin_userprofile bu
-		where 
+		where
 			ajc.ssn=bu.ssn
 			and ajc.user_id<>bu.user_id)
-where 
+where
 exists (select * from auto_jos_comprofiler ajc, bokin_userprofile bu
-		where 
+		where
 			ajc.ssn=bu.ssn
 			and ajc.user_id<>bu.user_id
 			and ajc.user_id not in (select ajc2.user_id from auto_jos_comprofiler ajc2 where ajc2.ssn=ajc.ssn)
@@ -68,12 +68,12 @@ exists (select * from auto_jos_comprofiler ajc, bokin_userprofile bu
 update bokin_userprofile bup
 set bup.user_id=
 	(select ajc.user_id from auto_jos_comprofiler ajc
-		where 
+		where
 			ajc.ssn=bup.ssn
 			and ajc.user_id<>bup.user_id)
-where 
+where
 exists (select * from auto_jos_comprofiler ajc
-		where 
+		where
 			ajc.ssn=bup.ssn
 			and ajc.user_id<>bup.user_id
 			and ajc.user_id not in (select ajc2.user_id from auto_jos_comprofiler ajc2 where ajc2.ssn=ajc.ssn));
@@ -85,7 +85,7 @@ BEGIN
 DECLARE EXIT HANDLER FOR SQLEXCEPTION begin
 	/* on exception, log error and rollback*/
 	insert into auto_log (dt, db_entity, event_group)
-	select current_timestamp(), u.id, 'insert user error'  
+	select current_timestamp(), u.id, 'insert user error'
 	FROM jos_users u
 	where u.id not in (select au.id from auth_user au);
 	rollback to savepoint s1;
@@ -93,12 +93,12 @@ end;
 
 /* log insert*/
 insert into auto_log (dt, db_entity, event_group)
-select current_timestamp(), u.id, 'insert user'  
+select current_timestamp(), u.id, 'insert user'
 FROM jos_users u
 where u.id not in (select au.id from auth_user au);
 
 /* do insert*/
-insert into auth_user (id, first_name,last_name, username, email, password, is_staff, is_active, is_superuser, last_login, date_joined)  
+insert into auth_user (id, first_name,last_name, username, email, password, is_staff, is_active, is_superuser, last_login, date_joined)
 SELECT u.id, u.name,'',u.username, u.email, u.password, '0','1','0',
  u.lastvisitDate, u.registerDate FROM jos_users u
 where u.id not in (select au.id from auth_user au);
@@ -112,7 +112,7 @@ BEGIN
 DECLARE EXIT HANDLER FOR SQLEXCEPTION begin
 	/* on exception, log error and rollback*/
 	insert into auto_log (dt, db_entity, event_group)
-	select current_timestamp(), j.user_id, 'insert user profile error'  
+	select current_timestamp(), j.user_id, 'insert user profile error'
 	FROM auto_jos_comprofiler j
 	where j.user_id not in (select bup.User_id from bokin_userprofile bup);
 	rollback to savepoint s2;
@@ -120,17 +120,17 @@ end;
 
 /* log insert*/
 insert into auto_log (dt, db_entity, event_group)
-select current_timestamp(), j.user_id, 'insert user profile'  
+select current_timestamp(), j.user_id, 'insert user profile'
 FROM auto_jos_comprofiler j
 where j.user_id not in (select bup.User_id from bokin_userprofile bup);
 
 /* do insert*/
 insert into bokin_userprofile (SSN, ImageURL, PhoneNumer, User_id)
-SELECT 
-  j.ssn, 
+SELECT
+  j.ssn,
   j.imageurl,
-  j.phonenumber, 
-  j.user_id 
+  j.phonenumber,
+  j.user_id
 FROM auto_jos_comprofiler j
 where j.user_id not in (select bup.User_id from bokin_userprofile bup);
 END;
@@ -142,7 +142,7 @@ begin
 DECLARE EXIT HANDLER FOR SQLEXCEPTION begin
 	/* on exception, log error and rollback*/
 	insert into auto_log (dt, db_entity, event_group)
-	select current_timestamp(),  au.id, 'update auth user error'  
+	select current_timestamp(),  au.id, 'update auth user error'
 	from auth_user au, jos_users ju
 	where
 	au.id > 50 		/* exclude django users , only update fbsr.is users*/
@@ -159,7 +159,7 @@ end;
 
 /* log update*/
 insert into auto_log (dt, db_entity, event_group)
-select current_timestamp(),  au.id, 'update auth user'  
+select current_timestamp(),  au.id, 'update auth user'
 from auth_user au, jos_users ju
 where
 au.id > 50 		/* exclude django users , only update fbsr.is users*/
@@ -173,14 +173,14 @@ or au.first_name<>ju.name
 );
 
 /* do update*/
-update auth_user au 
+update auth_user au
 set au.username = (select ju.username from jos_users ju where au.id=ju.id),
 au.email = (select ju.email from jos_users ju where au.id=ju.id),
 au.password = (select ju.password from jos_users ju where au.id=ju.id),
 au.first_name = (select ju.name from jos_users ju where au.id=ju.id),
 au.last_name = ''
 where exists(
-	select ju.id 
+	select ju.id
 	from jos_users ju
 	where
 	au.id > 50 		/* exclude django users , only update fbsr.is users*/
@@ -202,7 +202,7 @@ begin
 DECLARE EXIT HANDLER FOR SQLEXCEPTION begin
 	/* on exception, log error and rollback*/
 	insert into auto_log (dt, db_entity, event_group)
-	select current_timestamp(),  j.user_id, 'update bokin userprofile error' 
+	select current_timestamp(),  j.user_id, 'update bokin userprofile error'
 	from bokin_userprofile bu, auto_jos_comprofiler j
 	where
 	bu.user_id > 50 		/* exclude django users , only update fbsr.is users*/
@@ -218,7 +218,7 @@ end;
 
 /* log update*/
 insert into auto_log (dt, db_entity, event_group)
-select current_timestamp(),  bu.user_id, 'update bokin userprofile' 
+select current_timestamp(),  bu.user_id, 'update bokin userprofile'
 from bokin_userprofile bu, auto_jos_comprofiler j
 where
 bu.user_id > 50 		/* exclude django users , only update fbsr.is users*/
@@ -235,8 +235,8 @@ update bokin_userprofile bu set
 bu.ssn = (select j.ssn from auto_jos_comprofiler j where bu.user_id=j.user_id),
 bu.imageurl = (select j.imageurl from auto_jos_comprofiler j where bu.user_id=j.user_id),
 bu.phonenumer = (select j.phonenumber from auto_jos_comprofiler j where bu.user_id=j.user_id)
-where exists ( 
-	select j.user_id 
+where exists (
+	select j.user_id
 	from auto_jos_comprofiler j
 	where
 	bu.user_id > 50 		/* exclude django users , only update fbsr.is users*/
@@ -258,7 +258,7 @@ begin
 DECLARE EXIT HANDLER FOR SQLEXCEPTION begin
 	/* on exception, log error and rollback*/
 	insert into auto_log (dt, db_entity, event_group)
-	select current_timestamp(),  0, 'group insert error' 
+	select current_timestamp(),  0, 'group insert error'
 	from dual;
 	rollback to savepoint s5;
 end;

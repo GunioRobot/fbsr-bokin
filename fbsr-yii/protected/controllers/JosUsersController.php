@@ -104,7 +104,7 @@ class JosUsersController extends Controller
 				$com->user_id=$uid;
 				$com->cb_nylidi = 1;
 				if($com->save()) {
-					$this->redirect(array('site/index'));	
+					$this->redirect(array('site/index'));
 				}
 			}
 		}
@@ -113,7 +113,7 @@ class JosUsersController extends Controller
 			'model'=>$model,
 		));
 	}
-	
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.

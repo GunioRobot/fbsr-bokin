@@ -12,9 +12,9 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: .8em;
 	line-height: 1.2em;
-	margin: 0 0 0 0; 
-	padding: 0 0 0 0; 
-	text-align: center; 
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	text-align: center;
 }
 
 img {
@@ -34,30 +34,30 @@ height:40px;
 #outerWrapper {
 	background-color: #fff;
 	margin: 0 auto 0 auto;
-	text-align: left; 
-	width: 70em; 
+	text-align: left;
+	width: 70em;
 /*	padding: 1px 10px 10px 1px; */
-	
+
 	-moz-border-radius: 15px; -webkit-border-radius: 15px;
-	
+
 }
 #outerWrapper #header {
 	background-color: #8ab573;
 	-moz-border-radius-topleft: 15px; -webkit-border-top-left-radius: 15px;
 	-moz-border-radius-topright: 15px; -webkit-border-top-right-radius: 15px;
-	border-bottom: solid 1px #628152; 
+	border-bottom: solid 1px #628152;
 	/*padding-left: 10px;*/
 	font-size: 1.5em;
 	font-weight: bold;
 	line-height: 1.7em;
-	text-align: center; 
+	text-align: center;
 	/*padding: 10px 0px 10px 0px; */
-	
+
 }
-  
+
 #outerWrapper #contentWrapper #content {
 /*	margin: 0 16em 0 16em; */
 	/*padding: 20px 10px 20px 10px;*/
 /*	padding-left: 10px;*/
-	
+
 }
